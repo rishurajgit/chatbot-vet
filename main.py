@@ -1,6 +1,4 @@
-def main():
-    print("Hello from chatbot-vet!")
 
+from app.core.config import settings
 
-if __name__ == "__main__":
-    main()
+print(settings.VET_API_BASE_URL)
