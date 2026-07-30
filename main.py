@@ -1,10 +1,12 @@
-from app.core.llm import llm
+import asyncio
+
+from app.tools.pet_tools import get_pet
 
 
-def main():
-    response = llm.invoke("Say hello in one sentence.")
-    print(response.content)
+async def main():
+    result = await get_pet.ainvoke({"pet_id": 1})
+    print(result)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
