@@ -31,27 +31,69 @@ async def delete_pet(pet_id: int):
     return await client.delete(f"/pets/{pet_id}")
 
 @tool
-async def create_pet(data: CreatePetRequest):
+async def create_pet(
+    petname: str,
+    species: str,
+    breed: str,
+    age: int,
+    owner_id: int,
+):
     """
     Create a new pet.
 
     Args:
         data: Pet information.
     """
+    payload = {
+        "petname": petname,
+        "species": species,
+        "breed": breed,
+        "age": age,
+        "owner_id": owner_id,
+    }
     return await client.post(
         "/pets",
-        data.model_dump ()
+        payload
         )
 
 @tool
 async def update_pet(
     pet_id: int,
-    data: UpdatePetRequest,
+    name: str | None = None,
+    species: str | None = None,
+    breed: str | None = None,
+    age: int | None = None,
+    owner_id: int | None = None,
 ):
     """
     Update an existing pet.
     """
+    payload = {
+        "name": name,
+        "species": species,
+        "breed": breed,
+        "age": age,
+        "owner_id": owner_id,
+    }
+    payload = {
+        key: value
+        for key, value in payload.items()
+        if value is not None
+    }
     return await client.put(
         f"/pets/{pet_id}",
-        data.model_dump(exclude_none=True)
+        payload
     )
+    
+@tool
+async def search_pets(search: str):
+    """
+    Search pets by name or keyword.
+    Use this tool whenever the user refers to a pet by name instead of ID.
+    """
+    
+    return await client.get(
+        "/pets",
+        params={"search": search}
+    )
+    

@@ -8,6 +8,9 @@ class VetAPIClient:
         self.client = httpx.AsyncClient(
             base_url=settings.VET_API_BASE_URL,
             timeout=30.0,
+            headers={
+                "Authorization": f"Bearer {settings.VET_API_TOKEN}"
+            },
         )
 
     async def get(self, endpoint, headers=None, params=None):

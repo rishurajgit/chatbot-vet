@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     GROQ_API_KEY: str
     GROQ_MODEL: str
     VET_API_BASE_URL: str
+    VET_API_TOKEN: str
 
     model_config = SettingsConfigDict(
         env_file=".env",

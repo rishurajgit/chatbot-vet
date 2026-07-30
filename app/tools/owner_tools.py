@@ -1,18 +1,28 @@
 from langchain_core.tools import tool
 
 from app.clients.vet_api import VetAPIClient
-from app.schemas.owner import CreateOwnerRequest
+# from app.schemas.owner import CreateOwnerRequest
 
 client = VetAPIClient()
 
 @tool
-async def create_owner(data: CreateOwnerRequest):
+async def create_owner(
+    name: str,
+    phone: str,
+    email: str,
+):
     """
     Create a new owner.
     """
+    
+    payload = {
+        "name": name,
+        "phone": phone,
+        "email": email,
+    }
     return await client.post(
-        "/owners",
-        data.model_dump()
+        "/Owners",
+        payload,
     )
 
 

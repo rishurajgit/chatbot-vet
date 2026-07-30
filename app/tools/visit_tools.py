@@ -8,14 +8,23 @@ client = VetAPIClient()
 @tool
 async def create_visit(
     pet_id: int,
-    data: CreateVisitRequest,
+    visit_date: str,
+    reason: str,
+    diagnosis: str,
+    treatment: str,
 ):
     """
     Create a visit for a pet.
     """
+    payload = {
+        "visit_date": visit_date,
+        "reason": reason,
+        "diagnosis": diagnosis,
+        "treatment": treatment,
+    }
     return await client.post(
         f"/pets/{pet_id}/visits",
-        data.model_dump()
+        payload,
     )
     
 @tool
@@ -34,14 +43,25 @@ async def get_pet_visits(pet_id: int):
 @tool
 async def update_visit(
     visit_id: int,
-    data: UpdateVisitRequest,
+    visit_date: str | None = None,
+    reason: str | None = None,
+    diagnosis: str | None = None,
+    treatment: str | None = None,
 ):
     """
     Update a visit.
     """
+    payload = {
+        "visit_date": visit_date,
+        "reason": reason,
+        "diagnosis": diagnosis,
+        "treatment": treatment,
+    }
+    
+    payload =  {k: v for k, v in payload.items() if v is not None}
     return await client.put(
         f"/visits/{visit_id}",
-        data.model_dump(exclude_none=True)
+        payload,
     )
 
 @tool

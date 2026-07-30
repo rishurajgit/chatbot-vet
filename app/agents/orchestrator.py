@@ -10,6 +10,7 @@ from app.tools.pet_tools import (
     create_pet,
     update_pet,
     delete_pet,
+    search_pets
 )
 
 from app.tools.owner_tools import (
@@ -30,6 +31,7 @@ TOOLS = [
     create_pet,
     update_pet,
     delete_pet,
+    search_pets,
     create_owner,
     get_owner_pets,
     create_visit,

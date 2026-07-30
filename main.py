@@ -1,12 +1,9 @@
-import asyncio
+from fastapi import FastAPI
 
-from app.tools.visit_tools import get_pet_visits
+from app.api.chat import router as chat_router
 
+app = FastAPI(
+    title="Veterinary AI Chatbot",
+)
 
-async def main():
-    result = await get_pet_visits.ainvoke({"pet_id": 1})
-    print(result)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+app.include_router(chat_router)
