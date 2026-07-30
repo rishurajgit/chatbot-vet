@@ -1,4 +1,10 @@
+from app.core.llm import llm
 
-from app.core.config import settings
 
-print(settings.VET_API_BASE_URL)
+def main():
+    response = llm.invoke("Say hello in one sentence.")
+    print(response.content)
+
+
+if __name__ == "__main__":
+    main()
