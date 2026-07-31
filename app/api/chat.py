@@ -46,6 +46,14 @@ async def chat(request: ChatRequest):
         )
 
         response = result["messages"][-1].content
+        
+        if isinstance(response, list):
+            response = "".join(
+                block.get("text", "")
+                for block in response
+                if isinstance(block, dict)
+            )
+            
 
         return ChatResponse(
             response=response
